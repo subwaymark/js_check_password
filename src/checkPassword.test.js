@@ -97,8 +97,16 @@ describe(`Function 'checkPassword':`, () => {
 
   it(`should return 'false' if `
       + `password contains non-Latin alphabet`, () => {
-    const value = generatePassword(10, '1^BaŁ]\\');
+    const value = [
+      generatePassword(10, '1^BaŁ]\\'),
+      generatePassword(10, '1^Baџ]\\'),
+      generatePassword(10, '1^Baó]\\'),
+      generatePassword(10, '1^Baä]\\'),
+    ];
 
-    expect(checkPassword(value)).toBe(false);
+    value.forEach((password, i) => {
+      expect(checkPassword(password))
+        .toBe(false);
+    });
   });
 });
